@@ -1,3 +1,5 @@
+//esversion: 6
+
 //stuff to do during quarantine
 
 const options = [
@@ -28,7 +30,7 @@ var learn = [
 
 
 const second_lf = {
-    "Fly a kite": ["until...", "and..."],
+    "fly a kite": ["until...", "and..."],
     "challenge another to an arm wrestling match": ["but with your non-dominant hand.", "but only use two fingers"],
     "pet a dog": [],
 }
