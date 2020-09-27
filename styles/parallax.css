@@ -1,0 +1,43 @@
+.parallax, .parallax-sh, .parallax-av, .parallax-tl, .parallax-op
+{
+    position: relative;
+    background-attachment: fixed;
+    background-position-x: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.parallax-sh
+{
+    min-height: 400px;
+}
+.parallax-av
+{
+    min-height: 800px;
+}
+.parallax-tl
+{
+    min-height: 1000px;
+}
+.parallax-op
+{
+    opacity: 65%;
+}
+
+.p-opacity
+{
+    opacity:70%;
+}
+
+.p-btn-opacity
+{
+    opacity:95%;
+}
+
+.b-button
+{
+    opacity:95%;
+    height:160%;
+    font-size: 40px;
+    border-radius: 200px;
+    text-align: center;
+}
