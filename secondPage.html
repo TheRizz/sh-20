@@ -26,7 +26,7 @@
     <div style="flex-direction: column; display: block">
         <div style="margin-bottom: 10px;">
             <a href="Index.html">Home</a>
-            <div style='height: 300px'></div> <!--spacer for testing purposes-->
+            <div style='height: 500px'></div> <!--spacer for testing purposes-->
             <div id="roulette-port"></div> <!-- Create a div and pass the id to Roulette constructor -->
         </div>
         <div style="margin-top: 10px;">
@@ -43,13 +43,13 @@
         *       viewport_h  -> viewport height
         *       num_pannels -> number of pannels for the wheel (5-10 are working ranges)
         */
-        var r1 = new RouletteWheel("roulette-port", ["1", "1", "1", "1", "1", "1", "1", "1", "1", "1"], 300, 150);
+        var r1 = new RouletteWheel("roulette-port", ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"], 500, 300, 10, 'rainbow');
         let rand = document.getElementById("spin");
         rand.addEventListener("click", function (event) {
             event.preventDefault();
             // First param doesn't do much yet, just pass 10 for a smooth stop
             // Second param is number of rotations (faces, not full 360 rotations
-            r1.rotateWheel(10,43); 
+            r1.rotateWheel(10,1);
         })
     </script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"

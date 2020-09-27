@@ -1,3 +1,17 @@
+const ColorMode = {
+    'rainbow': 0,
+    'random': 1,
+    'grayscale': 2,
+};
+Object.freeze(ColorMode);
+
+const ZIndex = {
+    'roulette_viewport': 1,
+    'roulette_panel': 10,
+    'roulette_core': 5,
+};
+Object.freeze(ZIndex);
+
 // Pass array of options
     // If options is an array of arrays, grab the first element of each sub array as the display text
     // Otherwise just grab the element as display text
@@ -15,7 +29,7 @@ class RouletteWheel {
     /**
      * viewport inputs should be in pixels
      */
-    constructor(parent_id, options = colorOptions, viewport_w=500, viewport_h=300, num_panels=10) {
+    constructor(parent_id, options = colorOptions, viewport_w=500, viewport_h=300, num_panels=10, color_mode = 'rainbow') {
         this.bag = new RandomBag(0, options.length-1);
 
         const parent = document.getElementById(parent_id);
@@ -23,15 +37,31 @@ class RouletteWheel {
         parent.style.position = 'relative';
         parent.style.width = viewport_w + 'px';
         parent.style.height = viewport_h + 'px';
-        parent.style.margin = '40px auto';
+        parent.style.padding = '0';
+        //parent.style.margin = '40px auto';
         parent.style.perspective = '500px';
         parent.style.transformStyle = 'preserve-3d';
         parent.style.overflow= 'hidden';
         parent.style.display = 'flex';
-        /*parent.style.flexDirection = 'row';
+        parent.style.flexDirection = 'row';
         parent.style.alignItems = 'center';
-        parent.style.justifyContent = 'center';*/
+        //parent.style.backgroundColor = 'cyan';
+        parent.style.justifyContent = 'center';
+        parent.style.zIndex = ZIndex.roulette_viewport;
 
+        switch(color_mode) {
+            case 'rainbow': case 'Rainbow': case 'RAINBOW':
+                this.color_mode = ColorMode.rainbow;
+                break;
+            case 'random': case 'rand': case 'Random': case 'Rand': case 'RANDOM': case 'RAND':
+                this.color_mode = ColorMode.random;
+                break;
+            case 'grayscale': case 'Grayscale': case 'GRAYSCALE':
+                this.color_mode = ColorMode.grayscale;
+                break;
+            default:
+                this.color_mode = ColorMode.rainbow;
+        }
         this.options = options;
         this.is_string = false;
         if (typeof this.options[0] === 'string'){
@@ -56,11 +86,19 @@ class RouletteWheel {
         const r_core = document.createElement('div');
         parent.appendChild(r_core);
         r_core.style.top = viewport_h/4 + 'px';
+        //this.z_displace = 0; // test temp
         r_core.style.transform = 'translateZ(' + this.z_displace * -1.1 + 'px)';
         r_core.style.transformStyle = 'preserve-3d';
         r_core.style.overflow = 'visible';
-        r_core.style.height = '1px';
-        r_core.style.width = '1px';
+        r_core.style.height = '100%';
+        r_core.style.width = '100%';
+        //r_core.style.backgroundColor = 'pink';
+        r_core.style.display = 'flex';
+        r_core.style.alignItems = 'center';
+        r_core.style.justifyContent = 'center';
+        r_core.style.flexDirection = 'row';
+        r_core.style.zIndex = ZIndex.roulette_core;
+        r_core.position = 'absolute';
 
         for (let i = 0; i < this.num_panels; ++i) {
             let panel = document.createElement('div');
@@ -68,40 +106,51 @@ class RouletteWheel {
             panel.style.width = (this.panel_width + 'px');
             panel.style.height = (this.panel_height + 'px');
             panel.style.display = 'flex';
+            panel.style.color = "white";
+            panel.style.border= "3px solid black";
             panel.style.alignItems = 'center';
             panel.style.justifyContent = 'center';
             panel.style.border = '2px solid black';
-            //panel.style.transformStyle = 'preserve-3d';
-            // temp
-            panel.innerText = "TESTING" + i;
-            panel.style.background = Math.random() < 0.5?"blue": "red";
+            panel.style.top = (viewport_h - this.panel_height) / 2 + 'px';
+            panel.style.left = '0';
+            panel.style.fontSize = "36px";
+            panel.style.textShadow = "2px 2px 2px black";
+            panel.style.zIndex = ZIndex.roulette_panel;
             this.panels.push(panel);
             r_core.appendChild(panel);
         }
-
-
-
-            //var cells = document.querySelectorAll('.carousel__cell:nth-child(n)');
-            //var cells = document.getElementsByClassName('carousel__cell');
         this.indexes = this.bag.draw(this.num_panels);
         this.selected = 0;
         this.displayWheel(0);
-        // let child1 = document.createElement('div');
-        
-        // child1.innerText = "TEESTING";
-        // //console.log("constructor")
-        // child1.style.background = "black";
-        // //child1.setAttribute('style', 'background-color: black');
-        // document.getElementById(parent_id).appendChild(child1);
-        //document.
     }
 
     displayWheel(sec) {
         var color = 0;
+        let sat = '100%';
+        if (this.color_mode == ColorMode.grayscale) { 
+                sat = '10%';
+        }
+        const top = ((this.curr_angle / (this.rotation_angle)) + this.num_panels - 1) % this.num_panels;
+        
+        const center = (this.curr_angle / (this.rotation_angle)) % this.num_panels;
+        const bot = ((this.curr_angle / (this.rotation_angle)) + 1) % this.num_panels;
+        this.panels[bot].style.textShadow = '0px 1px 0px #999, 0px 2px 0px #888, 0px 3px 0px #777, 0px 4px 0px #666, 0px 5px 0px #555, 0px 6px 0px #444, 0px 7px 0px #333, 0px 8px 7px #001135';
         for(let cell = 0; cell < this.panels.length; cell++) {
+            //this.panels[cell].style.textShadow = '';
+            /* 
+             text-shadow: 0px 1px 0px #999, 0px 2px 0px #888, 0px 3px 0px #777, 0px 4px 0px #666, 0px 5px 0px #555, 0px 6px 0px #444, 0px 7px 0px #333, 0px 8px 7px #001135;
+
+            .carousel__cell_stopped_bottom {
+            text-shadow: 0px 1px 0px #999, 0px -2px 0px #888, 0px -3px 0px #777, 0px -4px 0px #666, 0px -5px 0px #555, 0px -6px 0px #444, 0px -7px 0px #333, 0px -8px 7px #001135;
+            */
             if (this.is_string) {
                 this.panels[cell].innerText = this.options[this.indexes[cell]];
-                this.panels[cell].style.background = 'hsla('+color+', 100%, 50%, 1';
+                if (this.color_mode == ColorMode.random) {
+                    this.panels[cell].style.background = 
+                        colorOptions[Math.floor(Math.random() * colorOptions.length)][1];
+                } else {
+                    this.panels[cell].style.background = 'hsla('+color+', '+ sat + ', 50%, 1';
+                }
             } else {
                 this.panels[cell].innerText = this.options[this.indexes[cell]][0];
                 this.panels[cell].style.background = this.options[this.indexes[cell]][1];
@@ -110,7 +159,7 @@ class RouletteWheel {
             this.panels[cell].style.transform =
             'rotateX(' + ((this.curr_angle + (cell * this.rotation_angle))) +'deg)' +
             'translateZ(' +Math.floor(this.z_displace)+ 'px)';
-            color += 360/(this.panels.length);
+            color += 360/(this.panels.length);  
         }
     }
 
@@ -130,9 +179,8 @@ class RouletteWheel {
         this.indexes.splice(this.getSelectedIndex(),1);
         this.bag.refillLeftovers(this.indexes);
 
-        console.log(this.bag.size());
-        console.log("sel index", this.getSelectedIndex());
-        console.log("sel", this.getSelected());
+        //console.log("sel index", this.getSelectedIndex());
+        //console.log("sel", this.getSelected());
     }
     
     updateSelected(rotations){

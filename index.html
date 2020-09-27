@@ -4,6 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="colors.js"></script>
+    <script src="roulette2.js"></script>
+    <script src="scripts/random.js" charset="utf-8"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
         integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <link rel="stylesheet" href="styles/parallax.css"/>
@@ -14,7 +17,7 @@
 .footer {
     background-color:darkslategrey;
     height: 20vw;
-    width: 100vw;
+    width: 100%;
 }
 
 @supports (-webkit-text-stroke: 1px black) {
@@ -61,10 +64,9 @@
     <div class="parallax-tl" style="background-image: url(images/parbg.jpg)">
         <div class="container-fluid align-center" id="bottom">
                 <div class = "row py-5" style="height: 200%">
-                    <div class="col px-3 py-4"><a class="btn btn-lg btn-secondary btn-block shadow b-button" href="#">Pre-K</a></div>
+                    <div class="col px-3 py-4"><a class="btn btn-lg btn-secondary btn-block shadow b-button" href="/prekNumbers.html">Pre-K</a></div>
                     <div class="col px-3 py-4"><a class="btn btn-lg btn-secondary btn-block shadow b-button" href="#">Kinder</a></div>
                     <div class="col px-3 py-4"><a class="btn btn-lg btn-secondary btn-block shadow b-button" href="/firstGradeMath.html" >First Grade</a></div>
-                    <div class="col px-3 py-4"><a class="btn btn-lg btn-secondary btn-block shadow b-button" href="#">Second Grade</a></div>
                 </div>
                 <hr class="pb-5" id="top">
                 
@@ -80,7 +82,8 @@
         <div class="jumbotron p-btn-opacity shadow-lg py-5 text-center" style="font-family:Rokkitt;">
             <h1 class="option" id="whitespace">OUR MISSION</h1><hr/>
             <h5>
-                To assist k-2nd grade educators with their online teaching experience, and help student reach their learning goals.
+                To assist K - 2nd grade educators with their online teaching experience, and help students reach their learning goals.
+                <br>
                 Designed with young learners in mind, our hope is that this project will bring the fun of learning to the digital classroom.
             </h5>
         </div>
@@ -89,52 +92,10 @@
     <div class="parallax-tl" style="background-image: url(images/footerimage.jpg)">
         <div class="container-fluid align-center" id="bottom">
 
-            <div class="pb-5"></div>
-            <div class="pb-5"></div>
-            <div class="pb-5"></div>
-            <div class="row pt-4">
-
-                <!--<div class="col-3 pl-1 pr-5">
-                    <ul>
-                        <li class="btn btn-lg btn-success btn-block py-4">Pre-K</li>
-                        <hr/>
-                        <li class="btn btn-lg btn-success btn-block py-4">Kinder</li>
-                        <hr/>
-                        <li class="btn btn-lg btn-danger btn-block py-4">1st Grade</li>
-                    </ul>
-                </div>-->
-
-                
-                <div class="col pb-5"><!-- set this to col-6 on pages that are not a part of home-->
-                    <div class="scene">
-                        <div class="carousel">
-                        <div class="carousel__cell">Wow! So many colors!</div>
-                        <div class="carousel__cell">A fun way to learn about different colors!</div>
-                        <div class="carousel__cell">3</div>
-                        <div class="carousel__cell">4</div>
-                        <div class="carousel__cell">5</div>
-                        <div class="carousel__cell">6</div>
-                        <div class="carousel__cell">7</div>
-                        <div class="carousel__cell">8</div>
-                        <div class="carousel__cell">Click 'Randomize' to begin!</div>
-                        </div>
-                    </div>
+            <div class="row  justify-content-center pt-4">
+                <div id="demo_roulette"><!-- set this to col-6 on pages that are not a part of home-->
                 </div>
-                
-                <!--<div class="col-3 pr-5 pl-1">
-                    <ul>
-                        <li class="btn btn-lg btn-danger btn-block py-4">2nd Grade</li>
-                        <hr/>
-                        <li class="btn btn-lg btn-danger btn-block py-4">3rd Grade</li>
-                        <hr/>
-                        <li class="btn btn-lg btn-danger btn-block py-4">4th Grade</li>
-                        <li class="py-4"> </li>
-                    </ul>
-                </div>-->
-
             </div>
-            <div class="pb-5"> </div>
-            <hr class="pt-5"/>
             <div class="container">
                 <div class="jumbotron py-5 text-center">
                     <h2 class="option p-btn-opacity" id="option">Which color will you get?</h2>
@@ -151,29 +112,40 @@
             <div class="col">
                 <h4 class="text-center">BROWSE BY GRADE</h4>
                 <hr/>
-                <li class = "test btn btn-block" style="color:white;font-size:1.5vw" href="#">Pre-K </li>
-                <li class = "test btn btn-block" style="color:white;font-size:1.5vw" href="#">Kindergarten</li>
-                <li class = "test btn btn-block" style="color:white;font-size:1.5vw" href="#">1st Grade</li>
-                <li class = "test btn btn-block" style="color:white;font-size:1.5vw" href="#">2nd Grade</li>
+                <div class="col pt-4"><a class="btn btn-sm btn-secondary btn-block shadow text-center" href="/prekNumbers.html">Pre-K</a></div>
+                <div class="col pt-4"><a class="btn btn-sm btn-secondary btn-block shadow text-center" href="/kinderNumbers.html">Kinder</a></div>
+                <div class="col pt-4"><a class="btn btn-sm btn-secondary btn-block shadow text-center" href="/firstNumbers.html">First Grade</a></div>
             </div>
             <div class="col">
                 <h4 class = "head text-center">AFTERSCHOOL SPINNERS</h4>
                 <hr/>
-                <li class = "test btn btn-block" style="color:white;font-size:1.5vw">Exercise</li>
-                <li class = "test btn btn-block" style="color:white;font-size:1.5vw">Time Sinks</li>
-                <li class = "test btn btn-block" style="color:white;font-size:1.5vw">Skills</li>
+                <div class="col pt-4"><a class="btn btn-sm btn-secondary btn-block shadow text-center" href="/exercise.html">Exercise</a></div>
+                <div class="col pt-4"><a class="btn btn-sm btn-secondary btn-block shadow text-center" href="/timesinks.html">Time Sinks</a></div>
+                <div class="col pt-4"><a class="btn btn-sm btn-secondary btn-block shadow text-center" href="/skills.html">Skills</a></div>
             </div>
             <div class="col">
                 <h4 class = "about text-center" style="color:white">ABOUT</h4>
                 <hr/>
-                <li class = "test btn btn-block" style="color:white;font-size:1.5vw">Mission</li>
-                <li class = "test btn btn-block" style="color:white;font-size:1.5vw">Contact Info</li>
-                <li class = "test btn btn-block" style="color:white;font-size:1.5vw">Secret Stuff</li>
+                <div class="col pt-4"><a class="btn btn-sm btn-secondary btn-block shadow text-center" href="/about.html">Mission</a></div>
+                <div class="col pt-4"><a class="btn btn-sm btn-secondary btn-block shadow text-center" href="/about.html">Contact Info</a></div>
+                <div class="col pt-4"><a class="btn btn-sm btn-secondary btn-block shadow text-center" href="/about.html">Secret Info</a></div>
             </div>
         </div>
         </div>
     </div>
-    
+    <script>
+        //constructor(parent_id, options = colorOptions, viewport_w=500, viewport_h=300, num_panels=10, color_mode = 'rainbow') {
+        let roulette1 = new RouletteWheel("demo_roulette", colorOptions, 400, 500, 10, 'rainbow');
+        let rand = document.getElementById("random");
+        rand.addEventListener("click", function (event) {
+            event.preventDefault();
+            // First param doesn't do much yet, just pass 10 for a smooth stop
+            // Second param is number of rotations (faces, not full 360 rotations
+            roulette1.rotateWheel(10,Math.floor((Math.random()*20)) + 40); 
+
+            document.getElementById('option').innerText = roulette1.getSelected()[0];
+        })
+        </script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
     </script>
@@ -183,9 +155,9 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
         integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous">
     </script>
-    <script src="colors.js"></script>
+
     <script src="roulettescript.js"></script>
-    <script src="scripts/random.js" charset="utf-8"></script>
+    
     
 </body>
 
