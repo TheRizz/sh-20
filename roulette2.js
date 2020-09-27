@@ -24,7 +24,6 @@ Object.freeze(ZIndex);
     8           0.925
     9           0.94
  */    
-
 class RouletteWheel {
     /**
      * viewport inputs should be in pixels
@@ -38,12 +37,14 @@ class RouletteWheel {
         parent.style.width = viewport_w + 'px';
         parent.style.height = viewport_h + 'px';
         parent.style.padding = '0';
+        //parent.style.margin = '40px auto';
         parent.style.perspective = '500px';
         parent.style.transformStyle = 'preserve-3d';
         parent.style.overflow= 'hidden';
         parent.style.display = 'flex';
         parent.style.flexDirection = 'row';
         parent.style.alignItems = 'center';
+        //parent.style.backgroundColor = 'cyan';
         parent.style.justifyContent = 'center';
         parent.style.zIndex = ZIndex.roulette_viewport;
 
@@ -80,7 +81,6 @@ class RouletteWheel {
         this.selected_index = 0;
         this.curr_angle = 0;
         this.rotation_angle = 360 / this.num_panels;
-        this.timestamp = undefined;
 
         const r_core = document.createElement('div');
         parent.appendChild(r_core);
@@ -114,16 +114,17 @@ class RouletteWheel {
             panel.style.left = '0';
             panel.style.fontSize = "36px";
             panel.style.textShadow = "2px 2px 2px black";
+            panel.style.textStroke = '3px black';
             panel.style.zIndex = ZIndex.roulette_panel;
             this.panels.push(panel);
             r_core.appendChild(panel);
         }
         this.indexes = this.bag.draw(this.num_panels);
         this.selected = 0;
-        this.displayWheel2();
+        this.displayWheel(0);
     }
 
-    displayWheel2() {
+    displayWheel(sec) {
         var color = 0;
         let sat = '100%';
         if (this.color_mode == ColorMode.grayscale) { 
@@ -136,132 +137,35 @@ class RouletteWheel {
                     this.panels[cell].style.background = 
                         colorOptions[Math.floor(Math.random() * colorOptions.length)][1];
                 } else {
-                    //console.log(color);
                     this.panels[cell].style.background = 'hsla('+color+', '+ sat + ', 50%, 1';
                 }
             } else {
                 this.panels[cell].innerText = this.options[this.indexes[cell]][0];
                 this.panels[cell].style.background = this.options[this.indexes[cell]][1];
             }
-            this.panels[cell].style.transform =
-            'rotateX(' + ((this.curr_angle + (cell * this.rotation_angle))) +'deg)' +
-            'translateZ(' +Math.floor(this.z_displace)+ 'px)';
-            color += 360/(this.panels.length); 
-        }
-    }
-
-    displayWheel(sec) {
-        // var color = 0;
-        // let sat = '100%';
-        // if (this.color_mode == ColorMode.grayscale) { 
-        //         sat = '10%';
-        // }
-        for(let cell = 0; cell < this.panels.length; cell++) {
-            this.panels[cell].style.textShadow = '';
-            //this.panels[cell].style.textShadow = '';
-            /* 
-             text-shadow: 0px 1px 0px #999, 0px 2px 0px #888, 0px 3px 0px #777, 0px 4px 0px #666, 0px 5px 0px #555, 0px 6px 0px #444, 0px 7px 0px #333, 0px 8px 7px #001135;
-
-            .carousel__cell_stopped_bottom {
-            text-shadow: 0px 1px 0px #999, 0px -2px 0px #888, 0px -3px 0px #777, 0px -4px 0px #666, 0px -5px 0px #555, 0px -6px 0px #444, 0px -7px 0px #333, 0px -8px 7px #001135;
-            */
-            // if (this.is_string) {
-            //     this.panels[cell].innerText = this.options[this.indexes[cell]];
-            //     if (this.color_mode == ColorMode.random) {
-            //         this.panels[cell].style.background = 
-            //             colorOptions[Math.floor(Math.random() * colorOptions.length)][1];
-            //     } else {
-            //         this.panels[cell].style.background = 'hsla('+color+', '+ sat + ', 50%, 1';
-            //     }
-            // } else {
-            //     this.panels[cell].innerText = this.options[this.indexes[cell]][0];
-            //     this.panels[cell].style.background = this.options[this.indexes[cell]][1];
-            // }
             this.panels[cell].style.transition = 'transform ' + sec + 's';
             this.panels[cell].style.transform =
             'rotateX(' + ((this.curr_angle + (cell * this.rotation_angle))) +'deg)' +
             'translateZ(' +Math.floor(this.z_displace)+ 'px)';
-            // color += 360/(this.panels.length);  
-        }
-        //console.log(this.getSelectedIndex());
-        let bot = (this.getSelectedIndex()+this.num_panels-1)%this.num_panels;
-        let center = this.getSelectedIndex();
-        let top = (this.getSelectedIndex() + 1) % this.num_panels;
-        //console.log(top, center, bot);
-        //console.log(this.panels[top].style.textShadow);
-        // this.panels[bot].innerText = "should be on bottom";
-        // this.panels[top].innerText = "should be on top";
-        this.panels[bot].style.textShadow = '0px 1px 0px #999, 0px -2px 0px #888, 0px -3px 0px #777, 0px -4px 0px #666, 0px -5px 0px #555, 0px -6px 0px #444, 0px -7px 0px #333, 0px -8px 7px #001135';
-        this.panels[top].style.textShadow = '0px 1px 0px #999, 0px 2px 0px #888, 0px 3px 0px #777, 0px 4px 0px #666, 0px 5px 0px #555, 0px 6px 0px #444, 0px 7px 0px #333, 0px 8px 7px #001135';
-        //console.log(this.panels[top].style.textShadow);
-
-    }
-
-    draw(timestamp) {
-        if (this.timestamp == undefined)
-            this.timestamp = timestamp;
-        this.elapsed = timestamp - this.timestamp;
-        console.log(this.speed);
-        //console.log(this.panels[0]);
-        this.displayWheel2();
-        this.curr_angle += this.speed;
-        console.log(this.curr_angle, this.goal_angle - (5*this.speed));
-        console.log(this.getSelected());
-        
-        if (this.curr_angle < this.goal_angle){
-            if (this.curr_angle > this.goal_angle - (5*this.speed)){
-                if (this.speed > 1)
-                    this.speed -= 1;
-            }
-            window.requestAnimationFrame(this.draw.bind(this));
-        } else {
-            this.timestamp = undefined;
-            
+            color += 360/(this.panels.length);  
         }
     }
 
     rotateWheel(rotations = 1) {
-        this.displayWheel2();
-        // var color = 0;
-        // let sat = '100%';
-        // if (this.color_mode == ColorMode.grayscale) { 
-        //         sat = '10%';
-        // }
-        // for(let cell = 0; cell < this.panels.length; cell++) {
-        //     if (this.is_string) {
-        //         this.panels[cell].innerText = this.options[this.indexes[cell]];
-        //         if (this.color_mode == ColorMode.random) {
-        //             this.panels[cell].style.background = 
-        //                 colorOptions[Math.floor(Math.random() * colorOptions.length)][1];
-        //         } else {
-        //             this.panels[cell].style.background = 'hsla('+color+', '+ sat + ', 50%, 1';
-        //         }
-        //     } else {
-        //         this.panels[cell].innerText = this.options[this.indexes[cell]][0];
-        //         this.panels[cell].style.background = this.options[this.indexes[cell]][1];
-        //     }
-        //     color += 360/(this.panels.length); 
-        // }
+        var delay = 10;
         this.indexes = this.bag.draw(this.num_panels);
-        this.indexes.splice(this.getSelectedIndex(),1);
-        //console.log(this.indexes[retval]);
+        this.displayWheel(0);
         this.updateSelected(rotations);
-        this.speed = 10;
-        this.delay = rotations/this.num_panels*0.8;
-        this.goal_angle = this.curr_angle + (rotations * this.rotation_angle);
-        window.requestAnimationFrame(this.draw.bind(this));
-
-        //this.indexes = this.bag.draw(this.num_panels);
-        //this.displayWheel(0);
-        //this.updateSelected(rotations);
-        //this.curr_angle += (rotations * this.rotation_angle);
-        /*for(let i = 0; i < rotations; i++){
+        // 
+        for(let i = 0; i < rotations; i++){
             this.curr_angle = (this.curr_angle + this.rotation_angle);// % 360;
-            this.displayWheel(this.delay);
-        }*/
-        //this.displayWheel(this.delay);
+            // speed-=0.15;
+            if (i == rotations -1)
+                delay = 4;
+            this.displayWheel(delay);
+        }
 
-        //this.indexes.splice(this.getSelectedIndex(),1);
+        this.indexes.splice(this.getSelectedIndex(),1);
         this.bag.refillLeftovers(this.indexes);
 
         //console.log("sel index", this.getSelectedIndex());
