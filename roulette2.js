@@ -38,14 +38,12 @@ class RouletteWheel {
         parent.style.width = viewport_w + 'px';
         parent.style.height = viewport_h + 'px';
         parent.style.padding = '0';
-        //parent.style.margin = '40px auto';
         parent.style.perspective = '500px';
         parent.style.transformStyle = 'preserve-3d';
         parent.style.overflow= 'hidden';
         parent.style.display = 'flex';
         parent.style.flexDirection = 'row';
         parent.style.alignItems = 'center';
-        //parent.style.backgroundColor = 'cyan';
         parent.style.justifyContent = 'center';
         parent.style.zIndex = ZIndex.roulette_viewport;
 
@@ -82,6 +80,7 @@ class RouletteWheel {
         this.selected_index = 0;
         this.curr_angle = 0;
         this.rotation_angle = 360 / this.num_panels;
+        this.timestamp = undefined;
 
         const r_core = document.createElement('div');
         parent.appendChild(r_core);
@@ -157,21 +156,36 @@ class RouletteWheel {
             'translateZ(' +Math.floor(this.z_displace)+ 'px)';
             color += 360/(this.panels.length);  
         }
-        console.log(this.getSelectedIndex());
+        //console.log(this.getSelectedIndex());
         let bot = (this.getSelectedIndex()+this.num_panels-1)%this.num_panels;
         let center = this.getSelectedIndex();
         let top = (this.getSelectedIndex() + 1) % this.num_panels;
-        console.log(top, center, bot);
-        console.log(this.panels[top].style.textShadow);
+        //console.log(top, center, bot);
+        //console.log(this.panels[top].style.textShadow);
         // this.panels[bot].innerText = "should be on bottom";
         // this.panels[top].innerText = "should be on top";
         this.panels[bot].style.textShadow = '0px 1px 0px #999, 0px -2px 0px #888, 0px -3px 0px #777, 0px -4px 0px #666, 0px -5px 0px #555, 0px -6px 0px #444, 0px -7px 0px #333, 0px -8px 7px #001135';
         this.panels[top].style.textShadow = '0px 1px 0px #999, 0px 2px 0px #888, 0px 3px 0px #777, 0px 4px 0px #666, 0px 5px 0px #555, 0px 6px 0px #444, 0px 7px 0px #333, 0px 8px 7px #001135';
-        console.log(this.panels[top].style.textShadow);
+        //console.log(this.panels[top].style.textShadow);
 
     }
 
-    rotateWheel(delay, rotations = 1) {
+    draw(timestamp) {
+        if (this.timestamp == undefined)
+            this.timestamp = timestamp;
+        this.elapsed = timestamp - this.timestamp;
+        console.log(this.curr_angle);
+        if (this.elapsed < this.delay * 40){
+            window.requestAnimationFrame(this.draw.bind(this));
+        } else {
+            this.timestamp = undefined;
+        }
+    }
+
+    rotateWheel(rotations = 1) {
+        this.delay = rotations * delay;
+        window.requestAnimationFrame(this.draw.bind(this));
+
         this.indexes = this.bag.draw(this.num_panels);
         this.displayWheel(0);
         this.updateSelected(rotations);
@@ -179,9 +193,9 @@ class RouletteWheel {
         for(let i = 0; i < rotations; i++){
             this.curr_angle = (this.curr_angle + this.rotation_angle);// % 360;
             // speed-=0.15;
-            if (i == rotations -1)
-                delay = 4;
-            this.displayWheel(delay);
+            //if (i == rotations -1)
+            //    delay = 4;
+            this.displayWheel(10);
         }
 
         this.indexes.splice(this.getSelectedIndex(),1);
