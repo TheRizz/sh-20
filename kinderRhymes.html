@@ -28,7 +28,7 @@
         <div class="collapse navbar-collapse">
             <div class="navbar-nav mx-4">
                 <a class="nav-item nav-link active ml-4" href="/secondPage.html">Second Page</a>
-                <a class="nav-item nav-link active ml-4" style="padding-left: 60vw;">First Grade - Time to Rhyme!</a>
+                <a class="nav-item nav-link active ml-4" style="padding-left: 60vw;">Kinder Grade - Time to Rhyme!</a>
             </div>
         </div>
     </nav>
@@ -59,7 +59,7 @@
                 </div>
                 <div class="col-6">
                     <div class="jumbotron py-5 text-center">
-                        <h2 class="option p-btn-opacity" id="option">What number is that?</h2>
+                        <h2 class="option p-btn-opacity" id="option">What rhymes with the word?</h2>
                     </div>
                     <button class="random btn btn-danger bordered btn-lg btn-block py-4 p-btn-opacity" id="randomnumber">Randomize</button>
                 </div>
@@ -69,7 +69,7 @@
                         <hr/>
                         <div class="col pt-4"><a class="btn btn-lg btn-secondary btn-block shadow text-center" href="/kindernumbers.html">Number Review</a></div>
                         <hr/>
-                        <div class="col pt-4"><a class="btn btn-lg btn-secondary btn-block shadow text-center" href="#">Time to Rhyme!</a></div>
+                        <div class="col pt-4"><a class="btn btn-lg btn-secondary btn-block shadow text-center" href="/kinderrhymes.html">Time to Rhyme!</a></div>
                     </ul>
                 </div>
             </div>  
@@ -127,7 +127,7 @@
             event.preventDefault();
             // First param doesn't do much yet, just pass 10 for a smooth stop
             // Second param is number of rotations (faces, not full 360 rotations
-            roulette1.rotateWheel(10,Math.floor((Math.random()*20)) + 40); 
+            roulette1.rotateWheel(Math.floor((Math.random()*20)) + 40); 
 
             //document.getElementById('option').innerText = roulette1.getSelected();
         })

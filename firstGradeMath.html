@@ -136,14 +136,15 @@
         let roulette3 = new RouletteWheel("third_roulette",
                                           numberset,
                                           400, 500, 10, 'random');
-                                          
+                                         
+        let rand = document.getElementById('randommath');
         rand.addEventListener("click", function (event) {
             event.preventDefault();
             // First param doesn't do much yet, just pass 10 for a smooth stop
             // Second param is number of rotations (faces, not full 360 rotations
-            roulette1.rotateWheel(10,Math.floor((Math.random()*20)) + 40); 
-            roulette2.rotateWheel(10,Math.floor((Math.random()*20)) + 40); 
-            roulette3.rotateWheel(10,Math.floor((Math.random()*20)) + 40);
+            roulette1.rotateWheel(Math.floor((Math.random()*20)) + 40); 
+            roulette2.rotateWheel(Math.floor((Math.random()*20)) + 40); 
+            roulette3.rotateWheel(Math.floor((Math.random()*20)) + 40);
 
             document.getElementById('option').innerText = roulette1.getSelected() + " " + roulette2.getSelected() + " " + roulette3.getSelected() + " = ";
         });

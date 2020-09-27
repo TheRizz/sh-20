@@ -120,15 +120,42 @@ class RouletteWheel {
         }
         this.indexes = this.bag.draw(this.num_panels);
         this.selected = 0;
-        this.displayWheel(0);
+        this.displayWheel2();
     }
 
-    displayWheel(sec) {
+    displayWheel2() {
         var color = 0;
         let sat = '100%';
         if (this.color_mode == ColorMode.grayscale) { 
                 sat = '10%';
         }
+        for(let cell = 0; cell < this.panels.length; cell++) {
+            if (this.is_string) {
+                this.panels[cell].innerText = this.options[this.indexes[cell]];
+                if (this.color_mode == ColorMode.random) {
+                    this.panels[cell].style.background = 
+                        colorOptions[Math.floor(Math.random() * colorOptions.length)][1];
+                } else {
+                    //console.log(color);
+                    this.panels[cell].style.background = 'hsla('+color+', '+ sat + ', 50%, 1';
+                }
+            } else {
+                this.panels[cell].innerText = this.options[this.indexes[cell]][0];
+                this.panels[cell].style.background = this.options[this.indexes[cell]][1];
+            }
+            this.panels[cell].style.transform =
+            'rotateX(' + ((this.curr_angle + (cell * this.rotation_angle))) +'deg)' +
+            'translateZ(' +Math.floor(this.z_displace)+ 'px)';
+            color += 360/(this.panels.length); 
+        }
+    }
+
+    displayWheel(sec) {
+        // var color = 0;
+        // let sat = '100%';
+        // if (this.color_mode == ColorMode.grayscale) { 
+        //         sat = '10%';
+        // }
         for(let cell = 0; cell < this.panels.length; cell++) {
             this.panels[cell].style.textShadow = '';
             //this.panels[cell].style.textShadow = '';
@@ -138,23 +165,23 @@ class RouletteWheel {
             .carousel__cell_stopped_bottom {
             text-shadow: 0px 1px 0px #999, 0px -2px 0px #888, 0px -3px 0px #777, 0px -4px 0px #666, 0px -5px 0px #555, 0px -6px 0px #444, 0px -7px 0px #333, 0px -8px 7px #001135;
             */
-            if (this.is_string) {
-                this.panels[cell].innerText = this.options[this.indexes[cell]];
-                if (this.color_mode == ColorMode.random) {
-                    this.panels[cell].style.background = 
-                        colorOptions[Math.floor(Math.random() * colorOptions.length)][1];
-                } else {
-                    this.panels[cell].style.background = 'hsla('+color+', '+ sat + ', 50%, 1';
-                }
-            } else {
-                this.panels[cell].innerText = this.options[this.indexes[cell]][0];
-                this.panels[cell].style.background = this.options[this.indexes[cell]][1];
-            }
+            // if (this.is_string) {
+            //     this.panels[cell].innerText = this.options[this.indexes[cell]];
+            //     if (this.color_mode == ColorMode.random) {
+            //         this.panels[cell].style.background = 
+            //             colorOptions[Math.floor(Math.random() * colorOptions.length)][1];
+            //     } else {
+            //         this.panels[cell].style.background = 'hsla('+color+', '+ sat + ', 50%, 1';
+            //     }
+            // } else {
+            //     this.panels[cell].innerText = this.options[this.indexes[cell]][0];
+            //     this.panels[cell].style.background = this.options[this.indexes[cell]][1];
+            // }
             this.panels[cell].style.transition = 'transform ' + sec + 's';
             this.panels[cell].style.transform =
             'rotateX(' + ((this.curr_angle + (cell * this.rotation_angle))) +'deg)' +
             'translateZ(' +Math.floor(this.z_displace)+ 'px)';
-            color += 360/(this.panels.length);  
+            // color += 360/(this.panels.length);  
         }
         //console.log(this.getSelectedIndex());
         let bot = (this.getSelectedIndex()+this.num_panels-1)%this.num_panels;
@@ -174,31 +201,67 @@ class RouletteWheel {
         if (this.timestamp == undefined)
             this.timestamp = timestamp;
         this.elapsed = timestamp - this.timestamp;
-        console.log(this.curr_angle);
-        if (this.elapsed < this.delay * 40){
+        console.log(this.speed);
+        //console.log(this.panels[0]);
+        this.displayWheel2();
+        this.curr_angle += this.speed;
+        console.log(this.curr_angle, this.goal_angle - (5*this.speed));
+        console.log(this.getSelected());
+        
+        if (this.curr_angle < this.goal_angle){
+            if (this.curr_angle > this.goal_angle - (5*this.speed)){
+                if (this.speed > 1)
+                    this.speed -= 1;
+            }
             window.requestAnimationFrame(this.draw.bind(this));
         } else {
             this.timestamp = undefined;
+            
         }
     }
 
     rotateWheel(rotations = 1) {
-        this.delay = rotations * delay;
+        this.displayWheel2();
+        // var color = 0;
+        // let sat = '100%';
+        // if (this.color_mode == ColorMode.grayscale) { 
+        //         sat = '10%';
+        // }
+        // for(let cell = 0; cell < this.panels.length; cell++) {
+        //     if (this.is_string) {
+        //         this.panels[cell].innerText = this.options[this.indexes[cell]];
+        //         if (this.color_mode == ColorMode.random) {
+        //             this.panels[cell].style.background = 
+        //                 colorOptions[Math.floor(Math.random() * colorOptions.length)][1];
+        //         } else {
+        //             this.panels[cell].style.background = 'hsla('+color+', '+ sat + ', 50%, 1';
+        //         }
+        //     } else {
+        //         this.panels[cell].innerText = this.options[this.indexes[cell]][0];
+        //         this.panels[cell].style.background = this.options[this.indexes[cell]][1];
+        //     }
+        //     color += 360/(this.panels.length); 
+        // }
+        this.indexes = this.bag.draw(this.num_panels);
+        this.indexes.splice(this.getSelectedIndex(),1);
+        //console.log(this.indexes[retval]);
+        this.updateSelected(rotations);
+        this.speed = 10;
+        this.delay = rotations/this.num_panels*0.8;
+        this.goal_angle = this.curr_angle + (rotations * this.rotation_angle);
         window.requestAnimationFrame(this.draw.bind(this));
 
-        this.indexes = this.bag.draw(this.num_panels);
-        this.displayWheel(0);
-        this.updateSelected(rotations);
-        // 
-        for(let i = 0; i < rotations; i++){
+        //this.indexes = this.bag.draw(this.num_panels);
+        //this.displayWheel(0);
+        //this.updateSelected(rotations);
+        //this.curr_angle += (rotations * this.rotation_angle);
+        /*for(let i = 0; i < rotations; i++){
             this.curr_angle = (this.curr_angle + this.rotation_angle);// % 360;
-            // speed-=0.15;
-            //if (i == rotations -1)
-            //    delay = 4;
-            this.displayWheel(10);
-        }
+            this.displayWheel(this.delay);
+        }*/
+        //this.displayWheel(this.delay);
 
-        this.indexes.splice(this.getSelectedIndex(),1);
+        //this.indexes.splice(this.getSelectedIndex(),1);
         this.bag.refillLeftovers(this.indexes);
 
         //console.log("sel index", this.getSelectedIndex());

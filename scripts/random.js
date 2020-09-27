@@ -50,7 +50,7 @@ const exercise2 = [
 
 // Doodle
 const doodle1 = [
-    "Draw a picture using only", "Paint a picture using only"
+    "Draw a picture using only"
 ]
 
 const doodle2 = ["nonagons","octagons","heptagons","hexagons","triangles","scalene triangles",
@@ -62,7 +62,7 @@ const doodle2 = ["nonagons","octagons","heptagons","hexagons","triangles","scale
 // "and" then call doodle2 a second time
 
 const doodle3 = [
-    "with the following colors", "without the following colors"
+    "with the following colors"
 ]
 
 const doodle4 = [
