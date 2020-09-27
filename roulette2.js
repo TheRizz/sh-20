@@ -131,7 +131,7 @@ class RouletteWheel {
                 sat = '10%';
         }
         const top = ((this.curr_angle / (this.rotation_angle)) + this.num_panels - 1) % this.num_panels;
-        
+        this.panels[top].style.textShadow = '0px 1px 0px #999, 0px -2px 0px #888, 0px -3px 0px #777, 0px -4px 0px #666, 0px -5px 0px #555, 0px -6px 0px #444, 0px -7px 0px #333, 0px -8px 7px #001135';
         const center = (this.curr_angle / (this.rotation_angle)) % this.num_panels;
         const bot = ((this.curr_angle / (this.rotation_angle)) + 1) % this.num_panels;
         this.panels[bot].style.textShadow = '0px 1px 0px #999, 0px 2px 0px #888, 0px 3px 0px #777, 0px 4px 0px #666, 0px 5px 0px #555, 0px 6px 0px #444, 0px 7px 0px #333, 0px 8px 7px #001135';
