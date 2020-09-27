@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>First Grade</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles/parallax.css"/>
+    <link rel="stylesheet" href="styles/Carouselv1.css"/>
+</head>
+  <body style="background-color: darkslategrey">
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="/">Roundabout Learning</a>
+        <div class="collapse navbar-collapse">
+            <div class="navbar-nav mx-4">
+                <a class="nav-item nav-link active ml-4" href="/secondPage.html">Second Page</a>
+            </div>
+        </div>
+    </nav>
+    <!-- END NAVBAR -->
+
+
+                <div class = "row py-1">
+                    <div class="col px-3 py-4"><a class="btn btn-sm btn-secondary btn-block shadow text-center b-button" href="#">Pre-K</a></div>
+                    <div class="col px-3 py-4"><a class="btn btn-sm btn-secondary btn-block shadow text-center b-button" href="#">Kinder</a></div>
+                    <div class="col px-3 py-4"><a class="btn btn-sm btn-secondary btn-block shadow text-center b-button" href="/firstgrademath.html" >First Grade</a></div>
+                    <div class="col px-3 py-4"><a class="btn btn-sm btn-secondary btn-block shadow text-center b-button" href="#">Second Grade</a></div>
+                </div>
+             
+
+    <div class="container-fluid align-center" id="bottom">
+
+        <div class="pb-5"></div>
+        <div class="pb-5"></div>
+        <div class="pb-5"></div>
+        <div class="row pt-4">
+
+            <div class="col pb-5" id="first_roulette"><!-- set this to col-6 on pages that are not a part of home-->
+                <!--<div class="scene">
+                    <div class="carousel" id="numbers1">
+                    <div class="carousel__cell">Wow! So many colors!</div>
+                    <div class="carousel__cell">A fun way to learn about different colors!</div>
+                    <div class="carousel__cell">3</div>
+                    <div class="carousel__cell">4</div>
+                    <div class="carousel__cell">5</div>
+                    <div class="carousel__cell">6</div>
+                    <div class="carousel__cell">7</div>
+                    <div class="carousel__cell">8</div>
+                    <div class="carousel__cell">Click 'Randomize' to begin!</div>
+                    </div>
+                </div>-->
+            </div>
+            <script>
+                var roulette1 = new RouletteWheel("first_roulette",["1", "2","3","4","5","6,","7","8","9,","0"]);
+                let rand = document.getElementById("randommath");
+                rand.addEventListener("click", function (event) {
+                    event.preventDefault();
+                    // First param doesn't do much yet, just pass 10 for a smooth stop
+                    // Second param is number of rotations (faces, not full 360 rotations
+                    r1.rotateWheel(10,43); 
+                })
+            </script>
+
+            <div class="col pb-5"><!-- set this to col-6 on pages that are not a part of home-->
+                <div class="scene">
+                    <div class="carousel" id="operators">
+                    <div class="carousel__cell">Wow! So many colors!</div>
+                    <div class="carousel__cell">A fun way to learn about different colors!</div>
+                    <div class="carousel__cell">3</div>
+                    <div class="carousel__cell">4</div>
+                    <div class="carousel__cell">5</div>
+                    <div class="carousel__cell">6</div>
+                    <div class="carousel__cell">7</div>
+                    <div class="carousel__cell">8</div>
+                    <div class="carousel__cell">Click 'Randomize' to begin!</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col pb-5"><!-- set this to col-6 on pages that are not a part of home-->
+                <div class="scene">
+                    <div class="carousel" id="numbers2">
+                    <div class="carousel__cell">Wow! So many colors!</div>
+                    <div class="carousel__cell">A fun way to learn about different colors!</div>
+                    <div class="carousel__cell">3</div>
+                    <div class="carousel__cell">4</div>
+                    <div class="carousel__cell">5</div>
+                    <div class="carousel__cell">6</div>
+                    <div class="carousel__cell">7</div>
+                    <div class="carousel__cell">8</div>
+                    <div class="carousel__cell">Click 'Randomize' to begin!</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="pb-5"> </div>
+        <hr class="pt-5"/>
+        
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-3 pr-5 pl-1">
+                    <ul>
+                        <li class="btn btn-lg btn-success btn-block py-4" href="#">Creating Sentences</li>
+                        <hr/>
+                        <li class="btn btn-lg btn-success btn-block py-4" href="#">Telling Time</li>
+                        <hr/>
+                        <li class="btn btn-lg btn-danger btn-block py-4" href="#">Counting Coins</li>
+                    </ul>
+                </div>
+                <div class="col-6">
+                    <div class="jumbotron py-5 text-center">
+                        <h2 class="option p-btn-opacity" id="option">Which color will you get?</h2>
+                    </div>
+                    <button class="random btn btn-danger bordered btn-lg btn-block py-4 p-btn-opacity" id="randommath">Randomize</button>
+                </div>
+                <div class="col-3 pr-5 pl-1">
+                    <ul>
+                        <li class="btn btn-lg btn-success btn-block py-4" href="#">Fun with Math</li>
+                        <hr/>
+                        <li class="btn btn-lg btn-success btn-block py-4" href="#">Number Review</li>
+                        <hr/>
+                        <li class="btn btn-lg btn-danger btn-block py-4" href="#">Time to Rhyme!</li>
+                    </ul>
+                </div>
+            </div>  
+        </div>
+    </div>
+    <div class= "space" style="height:5vw;"></div>
+    <div class="footer pt-5" style="font-family:Rokkitt;color:white; background: repeating-linear-gradient(darkslategrey,darkgreen);">
+        <div class="container">
+        <div class="row">
+            <div class="col px-2">
+                <h4 class="text-center">BROWSE BY GRADE</h4>
+                <hr/>
+                <li class = "test btn btn-block" style="color:white;font-size:1.5vw" href="#">Pre-K </li>
+                <li class = "test btn btn-block" style="color:white;font-size:1.5vw" href="#">Kindergarten</li>
+                <li class = "test btn btn-block" style="color:white;font-size:1.5vw" href="#">1st Grade</li>
+                <li class = "test btn btn-block" style="color:white;font-size:1.5vw" href="#">2nd Grade</li>
+            </div>
+            <div class="col px-2">
+                <h4 class = "head text-center">AFTERSCHOOL SPINNERS</h4>
+                <hr/>
+                <li class = "test btn btn-block" style="color:white;font-size:1.5vw" href="#">Exercise</li>
+                <li class = "test btn btn-block" style="color:white;font-size:1.5vw" href="#">Time Sinks</li>
+                <li class = "test btn btn-block" style="color:white;font-size:1.5vw" href="#">Skills</li>
+            </div>
+            <div class="col px-2">
+                <h4 class = "about text-center" style="color:white">ABOUT</h4>
+                <hr/>
+                <li class = "test btn btn-block" style="color:white;font-size:1.5vw" href="#">Mission</li>
+                <li class = "test btn btn-block" style="color:white;font-size:1.5vw" href="#">Contact Info</li>
+                <li class = "test btn btn-block" style="color:white;font-size:1.5vw" href="#">Secret Stuff</li>
+            </div>
+        </div>
+        </div>
+    </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="colors.js"></script>
+    <script src="roulettescript.js"></script>
+    <script src="scripts/random.js" charset="utf-8"></script>
+    <script src="roulette2.js"></script>
+  </body>
+</html>

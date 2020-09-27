@@ -155,8 +155,12 @@ class RandomBag {
             index = Math.random() * this.bag.length;
             elements.push(this.bag.splice(index, 1)[0]);
         }
-        console.log(elements);
+        //console.log(elements);
         return elements;
+    }
+
+    size(){
+        return this.bag.length;
     }
 }
 
@@ -173,7 +177,9 @@ var ten_choices = [];
 
 function addRandomizer() {
     var rand = document.getElementById("random");
-    rand.addEventListener("click", function (event) {
+    if(rand != null){
+    
+        rand.addEventListener("click", function (event) {
         event.preventDefault();
 
         //document.getElementById("option").innerText = options[bag.draw()];
@@ -181,17 +187,34 @@ function addRandomizer() {
         var times = Math.random()%10 + 40;
         //var inc = Math.random()%10;
         var speed = 10;
+        
         var cells = document.getElementsByClassName('carousel__cell');
         console.log(cells);
         var itemsnum = bag.draw(cells.length);
         //options[bag.drawTen()]
 
-        for(let cell = 0; cell < cells.length; cell++){
-            const c = Math.floor(Math.random() * colorOptions.length); //[0, 1) * 4   [0, 3.99999]  [0, 3]
-            cells[cell].style.backgroundColor = colorOptions[c][1];
-            cells[cell].innerText = colorOptions[c][0];
-            console.log(cell);
+        //ADDITONAL TEMP CODE TO START TRIPLE SPINNERS
+        var cellbatchs = document.getElementsByClassName('carousel');
+
+        for(let cellbatch = 0; cellbatch < cellbatchs.length; cellbatch++)
+        {
+            var cells = cellbatchs[cellbatch].getElementsByClassName('carousel__cell');
+            for(let cell = 0; cell < cells.length; cell++){
+                const c = Math.floor(Math.random() * colorOptions.length); //[0, 1) * 4   [0, 3.99999]  [0, 3]
+                cells[cell].style.backgroundColor = colorOptions[c][1];
+                cells[cell].innerText = colorOptions[c][0];
+                console.log(cell);
+            }
         }
+
+        //===========================================
+
+        //for(let cell = 0; cell < cells.length; cell++){
+        //    const c = Math.floor(Math.random() * colorOptions.length); //[0, 1) * 4   [0, 3.99999]  [0, 3]
+        //    cells[cell].style.backgroundColor = colorOptions[c][1];
+        //    cells[cell].innerText = colorOptions[c][0];
+        //    console.log(cell);
+        //}
 
         for(i = 0; i< times; i++)
         {
@@ -214,7 +237,66 @@ function addRandomizer() {
 
         //document.getElementById('audio').setAttribute('src', 'audio/SW.mp3');
         //document.getElementById('audio').play();
-    })
-}
+        })
+    }
+    // "Fun with Math" =====================================================================================
+    var randmath = document.getElementById('randommath');
+    if(randmath != null){
+        randmath.addEventListener("click", function(event){
+            event.preventDefault();
+            var operatorvals = ['+', '-',];
 
+            var times = Math.random()%10 + 40;
+            var speed = 10;
+
+            console.log("step1");
+            var cellbatchs = document.getElementsByClassName('carousel');
+
+            for(let cellbatch = 0; cellbatch < cellbatchs.length; cellbatch++)
+            {
+                console.log("step2");
+                var cells = cellbatchs[cellbatch].getElementsByClassName('carousel__cell');
+                var nums = [0,0];
+                var operatorv = '+';
+                for(let cell = 0; cell < cells.length; cell++){
+                    const c = Math.floor(Math.random() * colorOptions.length); //[0, 1) * 4   [0, 3.99999]  [0, 3]
+                    cells[cell].style.backgroundColor = colorOptions[c][1];
+                    console.log("step3");
+                    if(cellbatch == 1){
+                        const o = Math.floor(Math.random() * operatorvals.length);
+                        cells[cell].innerText = operatorvals[o];
+                        //operatorv = operatorvals[o];
+                    }
+                    else{
+                        const o = Math.floor(Math.random() * 51);
+                        cells[cell].innerText = o;
+                        //if(cellbatch == 0)
+                        //    nums[0] = o;
+                        //else
+                    }
+                }
+            }
+
+            for(i = 0; i< times; i++)
+            {
+                speed-=0.15;
+                selectedIndex--;
+                rotateCarousel(speed);
+            }
+
+            var currIndex = Math.floor(Math.abs(selectedIndex))%9;
+            //document.getElementsByClassName('carousel__cell').forEach( (elem) => {
+            //    elem.className += " " + 'carousel__cel_stop_top';
+            //});
+
+
+            cells[(currIndex + 1) % cells.length].style.textShadow = '0px 1px 0px #999, 0px 2px 0px #888, 0px 3px 0px #777, 0px 4px 0px #666, 0px 5px 0px #555, 0px 6px 0px #444, 0px 7px 0px #333, 0px 8px 7px #001135';
+            cells[currIndex].style.textShadow = '2px 2px 2px black';
+            cells[(currIndex + cells.length - 1) % cells.length].style.textShadow = '0px 1px 0px #999, 0px -2px 0px #888, 0px -3px 0px #777, 0px -4px 0px #666, 0px -5px 0px #555, 0px -6px 0px #444, 0px -7px 0px #333, 0px -8px 7px #001135';
+
+            document.getElementById("option").innerText = cells[currIndex].innerText;
+        })
+    }
+}
+// "End of Fun with Math" ==============================================================================
 addRandomizer();
